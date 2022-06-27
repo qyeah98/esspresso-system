@@ -43,8 +43,7 @@ cd $HOME
 sudo apt update -y
 sudo apt upgrade -y
 sudo apt install docker-compose
-sudo apt install -y ubuntu-desktop
-sudo apt install -y xrdp
+sudo apt install -y ubuntu-desktop xrdp
 curl https://www.espressosys.com/cape/docker-compose.yaml --output docker-compose.yaml
 
 echo "=================================================="
@@ -76,7 +75,7 @@ export XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/etc/xdg
 EOF
 
 
-echo $RDPUSERNAME | sudo -S cat <<EOF | sudo tee /etc/polkit-1/localauthority/50-local.d/xrdp-color-manager.pkla
+sudo echo $RDPUSERNAME | sudo -S cat <<EOF | sudo tee /etc/polkit-1/localauthority/50-local.d/xrdp-color-manager.pkla
 [Netowrkmanager]
 Identity=unix-user:*
 Action=org.freedesktop.color-manager.create-device
