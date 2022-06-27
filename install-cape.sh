@@ -75,7 +75,7 @@ export XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/etc/xdg
 EOF
 
 
-sudo echo $RDPUSERNAME | sudo -S cat <<EOF | sudo tee /etc/polkit-1/localauthority/50-local.d/xrdp-color-manager.pkla
+cat <<EOF | sudo tee /etc/polkit-1/localauthority/50-local.d/xrdp-color-manager.pkla
 [Netowrkmanager]
 Identity=unix-user:*
 Action=org.freedesktop.color-manager.create-device
