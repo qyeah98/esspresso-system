@@ -62,8 +62,7 @@ systemctl restart xrdp
 systemctl enable xrdp.service
 systemctl enable xrdp-sesman.service
 
-su - $RDPUSERNAME
-
+su - $RDPUSERNAME <<FIN
 cd ~
 DESKTOP=/usr/share/ubuntu:/usr/local/share:/usr/share:/var/lib/snapd/desktop
 
@@ -74,8 +73,9 @@ export XDG_DATA_DIRS=${DESKTOP}
 export XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/etc/xdg
 EOF
 
+sleep 1
 
-cat <<EOF | sudo tee /etc/polkit-1/localauthority/50-local.d/xrdp-color-manager.pkla
+echo $RDPPASSWORD  | sudo -S cat <<EOF | sudo tee /etc/polkit-1/localauthority/50-local.d/xrdp-color-manager.pkla
 [Netowrkmanager]
 Identity=unix-user:*
 Action=org.freedesktop.color-manager.create-device
@@ -96,10 +96,12 @@ wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo apt install ./google-chrome-stable_current_amd64.deb
 rm ./google-chrome-stable_current_amd64.deb
 
+logout
+FIN
+
 echo "=================================================="
 echo -e "\e[1m\e[32m7. Launch Cape\e[0m" && sleep 1
 
-exit
 docker-compose up
 
 echo "=================================================="
